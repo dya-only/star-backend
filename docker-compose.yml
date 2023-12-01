@@ -7,14 +7,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    links:
-      - db
-
-  db:
-    image: mariadb
-    expose:
-      - 3306
-    volumes:
-      - ./data/db:/var/lib/mysql
-    environment:
-      - MARIADB_ROOT_PASSWORD=root
+#    links:
+#      - db
+#
+#  db:
+#    image: mariadb
+#    expose:
+#      - 3306
+#    volumes:
+#      - ./data/db:/var/lib/mysql
+#    environment:
+#      - MARIADB_ROOT_PASSWORD=root
