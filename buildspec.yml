@@ -16,6 +16,6 @@ phases:
       - docker tag star:latest public.ecr.aws/l9d5m0q6/star:latest
       - docker push public.ecr.aws/l9d5m0q6/star:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"star","imageUri":"%s"}]' 658986583341.dkr.ecr.ap-northeast-2.amazonaws.com/star:latest > imagedefinitions.json
+      - printf '[{"name":"app","imageUri":"%s"}]' 658986583341.dkr.ecr.ap-northeast-2.amazonaws.com/star:latest > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
