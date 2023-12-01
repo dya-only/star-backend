@@ -9,7 +9,6 @@ import kro.kr.gbsw_star.util.security.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 @Service @RequiredArgsConstructor
