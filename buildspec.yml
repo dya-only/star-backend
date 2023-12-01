@@ -10,12 +10,14 @@ phases:
       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/l9d5m0q6
   build:
     commands:
+      - chmod +x ./gradlew
+      - ./gradlew build
       - docker build -t star .
   post_build:
     commands:
       - docker tag star:latest public.ecr.aws/l9d5m0q6/star:latest
       - docker push public.ecr.aws/l9d5m0q6/star:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"app","imageUri":"%s"}]' 658986583341.dkr.ecr.ap-northeast-2.amazonaws.com/star:latest > imagedefinitions.json
+      - printf '[{"name":"star","imageUri":"%s"}]' 658986583341.dkr.ecr.ap-northeast-2.amazonaws.com/star:latest > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
