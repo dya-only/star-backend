@@ -16,7 +16,7 @@ phases:
       - docker tag star:latest public.ecr.aws/l9d5m0q6/star:latest
   post_build:
     commands:
-      - docker push public.ecr.aws/l9d5m0q6/star:latest
+      - docker push --platform linux/amd64 public.ecr.aws/l9d5m0q6/star:latest
       - echo Writing image definitions file...
       - printf '[{"name":"%s","imageUri":"%s"}]' 658986583341.dkr.ecr.ap-northeast-2.amazonaws.com/star:latest > imagedefinitions.json
       - cat imagedefinitions.json

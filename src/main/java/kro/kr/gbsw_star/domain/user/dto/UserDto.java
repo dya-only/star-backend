@@ -17,6 +17,7 @@ public class UserDto {
         String githubId;
         String password;
         Integer stars;
+        Boolean isRanking;
 
         MultipartFile image;
     }
@@ -29,11 +30,14 @@ public class UserDto {
         String email;
         String githubId;
         Integer stars;
+        Boolean isRanking;
 
         String image;
         public Response (User user) {
             this.email = user.getEmail();
             this.githubId = user.getGithubId();
+            this.stars = user.getStars();
+            this.isRanking = user.getIsRanking();
 
             this.image = user.getImage();
         }

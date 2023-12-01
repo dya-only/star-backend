@@ -15,11 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("health")
-    public ResponseEntity<HttpStatus> healthCheck() {
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<HttpStatus> create(@ModelAttribute UserDto.Request userDto) throws Exception {
         userService.create(userDto);
