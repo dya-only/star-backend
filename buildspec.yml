@@ -12,7 +12,7 @@ phases:
     commands:
       - chmod +x ./gradlew
       - ./gradlew build
-      - docker build -t star .
+      - docker build -t star:latest .
   post_build:
     commands:
       - docker tag star:latest public.ecr.aws/l9d5m0q6/star:latest
