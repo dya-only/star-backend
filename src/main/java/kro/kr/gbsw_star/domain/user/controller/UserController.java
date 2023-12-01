@@ -4,7 +4,6 @@ import kro.kr.gbsw_star.domain.user.dto.TokenDto;
 import kro.kr.gbsw_star.domain.user.dto.UserDto;
 import kro.kr.gbsw_star.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.Token;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

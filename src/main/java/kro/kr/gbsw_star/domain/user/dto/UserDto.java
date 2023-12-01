@@ -16,6 +16,7 @@ public class UserDto {
         String email;
         String githubId;
         String password;
+        Integer stars;
 
         MultipartFile image;
     }
@@ -27,6 +28,7 @@ public class UserDto {
     public static class Response {
         String email;
         String githubId;
+        Integer stars;
 
         String image;
         public Response (User user) {

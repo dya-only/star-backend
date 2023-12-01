@@ -51,7 +51,8 @@ public class UserService {
     }
 
     // delete
-    public void delete(Long id) {
+    public void delete(Long id) throws Exception {
+        userRepository.findById(id).orElseThrow(NotFoundException::new);
         userRepository.deleteById(id);
     }
 

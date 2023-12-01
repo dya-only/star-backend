@@ -19,6 +19,8 @@ public class User {
     String githubId;
     String password;
 
+    Integer stars;
+
     String image;
 
     public User(UserDto.Request userDto, String image) {
