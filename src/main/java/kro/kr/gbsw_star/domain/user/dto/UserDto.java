@@ -12,6 +12,14 @@ public class UserDto {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class Login {
+        String email;
+        String password;
+    }
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Request {
         String email;
         String githubId;

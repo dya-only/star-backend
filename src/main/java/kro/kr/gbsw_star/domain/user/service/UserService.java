@@ -24,7 +24,9 @@ public class UserService {
         Image image = imageUploader.upload(userDto.getImage(), "user");
 
         userDto.setPassword(hashedPassword);
-        User user = new User(userDto, image.getStorePath());
+        userDto.setStars(0);
+        userDto.setIsRanking(false);
+        User user = new User(userDto, image.getStoreImageName());
         userRepository.save(user);
     }
 
@@ -56,7 +58,7 @@ public class UserService {
     }
 
     // login
-    public String loginByPass(UserDto.Request userDto) throws NotFoundException {
+    public String loginByPass(UserDto.Login userDto) throws NotFoundException {
         User user = userRepository.findByEmail(userDto.getEmail()).orElseThrow(NotFoundException::new);
         String password = userDto.getPassword();
         String hashedPassword = user.getPassword();

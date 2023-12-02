@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("by-pass")
-    public ResponseEntity<TokenDto> login(@RequestBody UserDto.Request userDto) throws NotFoundException {
+    public ResponseEntity<TokenDto> login(@RequestBody UserDto.Login userDto) throws NotFoundException {
         String token = userService.loginByPass(userDto);
         TokenDto tokenDto = new TokenDto();
 

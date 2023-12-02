@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Component
 public class ImageUploader {
-    private static final String STORE_PATH = System.getProperty("user.dir") + "/images";
+    private static final String STORE_PATH = "./images";
 
     public Image upload(MultipartFile multipartFile, String dirName) throws Exception {
         String originalName = multipartFile.getOriginalFilename();
