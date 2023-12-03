@@ -7,9 +7,17 @@ import kro.kr.gbsw_star.util.image.Image;
 import kro.kr.gbsw_star.util.image.ImageUploader;
 import kro.kr.gbsw_star.util.security.JwtTokenService;
 import lombok.RequiredArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @Service @RequiredArgsConstructor
 public class UserService {
@@ -19,13 +27,17 @@ public class UserService {
 
     // create
     public void create(UserDto.Request userDto) throws Exception {
+        Optional<User> _user = userRepository.findByGithubId(userDto.getGithubId());
+        if (_user.isPresent()) {
+            throw new Exception();
+        }
+
         String password = userDto.getPassword();
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         Image image = imageUploader.upload(userDto.getImage(), "user");
 
         userDto.setPassword(hashedPassword);
-        userDto.setStars(0);
-        userDto.setIsRanking(false);
+        userDto.setIsRanking("false");
         User user = new User(userDto, image.getStoreImageName());
         userRepository.save(user);
     }
@@ -68,5 +80,25 @@ public class UserService {
         }
 
         return jwtTokenService.generateToken(user.getId());
+    }
+
+    // findByRanking
+    public List<User> findByRanking() {
+        return userRepository.findAll();
+    }
+
+    // getGithubStars
+    public Integer getStars(String username) throws IOException {
+        String URL = "https://github.com/" + username + "?tab=repositories&q=&type=&language=&sort=stargazers";
+
+        // .Link--muted
+        Document doc = Jsoup.connect(URL).get();
+        Elements els = doc.select("div.f6 > a.Link--muted");
+        int stars = 0;
+        for (Element el : els) {
+            stars += Integer.parseInt(el.text());
+        }
+
+        return stars;
     }
 }

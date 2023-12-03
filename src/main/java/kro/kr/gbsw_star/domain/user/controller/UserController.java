@@ -2,12 +2,16 @@ package kro.kr.gbsw_star.domain.user.controller;
 
 import kro.kr.gbsw_star.domain.user.dto.TokenDto;
 import kro.kr.gbsw_star.domain.user.dto.UserDto;
+import kro.kr.gbsw_star.domain.user.entity.User;
 import kro.kr.gbsw_star.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 @RequestMapping("/api/user")
 @RestController
@@ -36,10 +40,22 @@ public class UserController {
         return new ResponseEntity<>(tokenDto, HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<List<User>> findUserByRankingStatus() {
+        List<User> userDtoList = userService.findByRanking();
+        return new ResponseEntity<>(userDtoList, HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<?> findById(@PathVariable(name = "id") Long id) throws NotFoundException {
         UserDto.Response userDto = userService.find(id);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @GetMapping("stars/{username}")
+    public ResponseEntity<Integer> getUserGithubStars(@PathVariable(name = "username") String username) throws IOException {
+        Integer stars = userService.getStars(username);
+        return new ResponseEntity<>(stars, HttpStatus.OK);
     }
 
     @PatchMapping("{id}")

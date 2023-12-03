@@ -24,8 +24,7 @@ public class UserDto {
         String email;
         String githubId;
         String password;
-        Integer stars;
-        Boolean isRanking;
+        String isRanking;
 
         MultipartFile image;
     }
@@ -35,16 +34,16 @@ public class UserDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
+        Long id;
         String email;
         String githubId;
-        Integer stars;
-        Boolean isRanking;
+        String isRanking;
 
         String image;
         public Response (User user) {
+            this.id = user.getId();
             this.email = user.getEmail();
             this.githubId = user.getGithubId();
-            this.stars = user.getStars();
             this.isRanking = user.getIsRanking();
 
             this.image = user.getImage();
