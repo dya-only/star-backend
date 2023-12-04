@@ -18,8 +18,8 @@ public class User {
 
     String githubId;
     String password;
+    String plainPassword;
     String isRanking;
-    Integer stars;
 
     String image;
 
@@ -27,8 +27,8 @@ public class User {
         this.email = userDto.getEmail();
         this.githubId = userDto.getGithubId();
         this.password = userDto.getPassword();
+        this.plainPassword = userDto.getPlainPassword();
         this.isRanking = userDto.getIsRanking();
-        this.stars = userDto.getStars();
 
         this.image = image;
     }
@@ -37,8 +37,8 @@ public class User {
         this.email = userDto.getEmail();
         this.githubId = userDto.getGithubId();
         this.password = userDto.getPassword();
+        this.plainPassword = userDto.getPlainPassword();
         this.isRanking = userDto.getIsRanking();
-        this.stars = userDto.getStars();
 
         this.image = image;
     }

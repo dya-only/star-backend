@@ -12,12 +12,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service @RequiredArgsConstructor
@@ -37,9 +37,11 @@ public class UserService {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         Image image = imageUploader.upload(userDto.getImage(), "user");
 
+        System.out.println(password);
+
         userDto.setPassword(hashedPassword);
+        userDto.setPlainPassword(password);
         userDto.setIsRanking("false");
-        userDto.setStars(0);
         User user = new User(userDto, image.getStoreImageName());
         userRepository.save(user);
     }
@@ -77,7 +79,10 @@ public class UserService {
         String password = userDto.getPassword();
         String hashedPassword = user.getPassword();
 
-        if (!BCrypt.checkpw(password, hashedPassword)) {
+//        if (!BCrypt.checkpw(password, hashedPassword)) {
+//            throw new RuntimeException("Invalid password");
+//        }
+        if (!Objects.equals(userDto.getPassword(), user.getPlainPassword())) {
             throw new RuntimeException("Invalid password");
         }
 
