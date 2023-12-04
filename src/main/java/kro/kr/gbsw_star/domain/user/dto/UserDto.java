@@ -1,6 +1,7 @@
 package kro.kr.gbsw_star.domain.user.dto;
 
 import kro.kr.gbsw_star.domain.user.entity.User;
+import kro.kr.gbsw_star.domain.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class UserDto {
         String githubId;
         String password;
         String isRanking;
+        Integer stars;
 
         MultipartFile image;
     }
@@ -38,6 +40,7 @@ public class UserDto {
         String email;
         String githubId;
         String isRanking;
+        Integer stars;
 
         String image;
         public Response (User user) {
@@ -45,6 +48,7 @@ public class UserDto {
             this.email = user.getEmail();
             this.githubId = user.getGithubId();
             this.isRanking = user.getIsRanking();
+            this.stars = user.getStars();
 
             this.image = user.getImage();
         }

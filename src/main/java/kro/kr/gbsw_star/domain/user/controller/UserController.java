@@ -52,8 +52,14 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+    @GetMapping("by-github/{githubId}")
+    public ResponseEntity<?> findByGithubId(@PathVariable(name = "githubId") String githubId) throws NotFoundException {
+        UserDto.Response userDto = userService.findByGithubId(githubId);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
     @GetMapping("stars/{username}")
-    public ResponseEntity<Integer> getUserGithubStars(@PathVariable(name = "username") String username) throws IOException {
+    public ResponseEntity<Integer> getUserGithubStars(@PathVariable(name = "username") String username) throws IOException, NotFoundException {
         Integer stars = userService.getStars(username);
         return new ResponseEntity<>(stars, HttpStatus.OK);
     }

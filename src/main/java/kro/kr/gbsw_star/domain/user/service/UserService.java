@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,7 @@ public class UserService {
 
         userDto.setPassword(hashedPassword);
         userDto.setIsRanking("false");
+        userDto.setStars(0);
         User user = new User(userDto, image.getStoreImageName());
         userRepository.save(user);
     }
@@ -87,8 +89,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    // findByGithubId
+    public UserDto.Response findByGithubId(String githubId) throws NotFoundException {
+        return new UserDto.Response(userRepository.findByGithubId(githubId).orElseThrow(NotFoundException::new));
+    }
+
     // getGithubStars
-    public Integer getStars(String username) throws IOException {
+    public Integer getStars(String username) throws IOException, NotFoundException {
         String URL = "https://github.com/" + username + "?tab=repositories&q=&type=&language=&sort=stargazers";
 
         // .Link--muted
