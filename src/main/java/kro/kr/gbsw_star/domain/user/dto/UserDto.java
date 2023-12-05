@@ -1,7 +1,6 @@
 package kro.kr.gbsw_star.domain.user.dto;
 
 import kro.kr.gbsw_star.domain.user.entity.User;
-import kro.kr.gbsw_star.domain.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

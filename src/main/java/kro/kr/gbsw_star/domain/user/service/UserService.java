@@ -40,7 +40,6 @@ public class UserService {
         System.out.println(password);
 
         userDto.setPassword(hashedPassword);
-        userDto.setPlainPassword(password);
         userDto.setIsRanking("false");
         User user = new User(userDto, image.getStoreImageName());
         userRepository.save(user);
@@ -59,10 +58,18 @@ public class UserService {
     // update
     public void update(Long id, UserDto.Request userDto) throws Exception {
         User user = userRepository.findById(id).orElseThrow(NotFoundException::new);
-        String password = userDto.getPassword();
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        userDto.setPassword(hashedPassword);
+        if (userDto.getPassword() == null) {
+            userDto.setPassword(user.getPassword());
+        } else  {
+            String password = userDto.getPassword();
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            userDto.setPassword(hashedPassword);
+        }
+        if (userDto.getEmail() == null) userDto.setEmail(user.getEmail());
+        if (userDto.getIsRanking() == null) userDto.setIsRanking(user.getIsRanking());
+        if (userDto.getGithubId() == null) userDto.setGithubId(user.getGithubId());
+
         user.update(userDto, user.getImage());
         userRepository.save(user);
     }
@@ -79,10 +86,7 @@ public class UserService {
         String password = userDto.getPassword();
         String hashedPassword = user.getPassword();
 
-//        if (!BCrypt.checkpw(password, hashedPassword)) {
-//            throw new RuntimeException("Invalid password");
-//        }
-        if (!Objects.equals(userDto.getPassword(), user.getPlainPassword())) {
+        if (!BCrypt.checkpw(password, hashedPassword)) {
             throw new RuntimeException("Invalid password");
         }
 

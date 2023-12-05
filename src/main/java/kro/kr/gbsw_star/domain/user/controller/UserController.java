@@ -63,7 +63,7 @@ public class UserController {
         return new ResponseEntity<>(stars, HttpStatus.OK);
     }
 
-    @PatchMapping("{id}")
+    @PutMapping("{id}")
     public ResponseEntity<HttpStatus> update(@PathVariable(name = "id") Long id, UserDto.Request userDto) throws Exception {
         userService.update(id, userDto);
         return new ResponseEntity<>(HttpStatus.OK);
