@@ -3,22 +3,19 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto17
-  pre_build:
+      java: latest
     commands:
-      - aws --version
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/l9d5m0q6
+      - echo Installing packages...
+      - chmod +x ./gradlew
   build:
     commands:
-      - chmod +x ./gradlew
-      - ./gradlew :moduleName:bootBuildImage --imageName=star
-#      - docker build .
-      - docker tag star:latest public.ecr.aws/l9d5m0q6/star:latest
+      - echo Build Starting...
+      - ./gradlew build
   post_build:
     commands:
-      - docker push --platform linux/amd64 public.ecr.aws/l9d5m0q6/star:latest
-      - echo Writing image definitions file...
-      - printf '[{"name":"%s","imageUri":"%s"}]' 658986583341.dkr.ecr.ap-northeast-2.amazonaws.com/star:latest > imagedefinitions.json
-      - cat imagedefinitions.json
+      - echo Build Success!!
+
 artifacts:
-  files: imagedefinitions.json
+  files:
+    - appspec.yml
+    - '**/*'
