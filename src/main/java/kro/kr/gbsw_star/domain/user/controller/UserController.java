@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@RequestMapping("/api/user")
+@RequestMapping("api/user")
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -58,7 +58,8 @@ public class UserController {
     }
 
     @GetMapping("stars/{username}")
-    public ResponseEntity<Integer> getUserGithubStars(@PathVariable(name = "username") String username) throws IOException, NotFoundException {
+    public ResponseEntity<Integer> getUserGithubStars(@PathVariable(name = "username") String username)
+            throws IOException, NotFoundException {
         Integer stars = userService.getStars(username);
         return new ResponseEntity<>(stars, HttpStatus.OK);
     }
