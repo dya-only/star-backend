@@ -24,7 +24,6 @@ public class UserDto {
         String email;
         String githubId;
         String password;
-        String plainPassword;
         String isRanking;
         String salt;
 

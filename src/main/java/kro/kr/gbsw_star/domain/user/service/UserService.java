@@ -36,8 +36,6 @@ public class UserService {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         Image image = imageUploader.upload(userDto.getImage(), "user");
 
-        System.out.println(password);
-
         userDto.setPassword(hashedPassword);
         userDto.setIsRanking("false");
         User user = new User(userDto, image.getStoreImageName());
