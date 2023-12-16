@@ -1,4 +1,4 @@
-FROM amazoncorretto:17-alpine
+FROM openjdk:latest
 
 WORKDIR /app
 
